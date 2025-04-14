@@ -33,9 +33,9 @@ function showTask(){
         li.innerHTML = `
             <div class="todo-item ${task.completed ? "task-completed" : ""}">
                 <input data-index = "${index}" type = "checkbox" ${task.completed ? "checked" : ""} />
-                <span class="tarea">${task.title}</span>
+                <span class="task">${task.title}</span>
             </div>
-            <button>X</button>`;
+            <button data-index = "${index}">X</button>`;
             todoList.appendChild(li);
     });
 
@@ -63,7 +63,7 @@ todoList.addEventListener("click", (evento) => {
     if (evento.target.tagName === "INPUT"){
         taskArray[index].completed = !taskArray[index].completed;
     }
-    if (evento.target.TagName === "BUTON"){
+    if (evento.target.tagName === "BUTTON"){
         taskArray.splice(index, 1);
     }
     showTask();
@@ -90,5 +90,11 @@ completedBtn.addEventListener("click", () => {
     allBtn.classList.remove("active");
     activeBtn.classList.remove("active");
     completedBtn.classList.add("active");
+    showTask();
+});
+
+clearBtn.addEventListener("click", () =>{
+    let taskFilter = taskArray.filter(task => !task.completed);
+    taskArray = taskFilter;
     showTask();
 });
